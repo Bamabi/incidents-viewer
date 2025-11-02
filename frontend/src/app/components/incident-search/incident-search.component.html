@@ -49,9 +49,9 @@
     <div class="form-actions">
       <button class="btn btn-primary" (click)="search()" [disabled]="isLoading">
         @if (isLoading) {
-          <ng-container>{{ "search.search" | translate }}</ng-container>
-        } @else {
           <ng-container>{{ "search.searching" | translate }}</ng-container>
+        } @else {
+          <ng-container>{{ "search.search" | translate }}</ng-container>
         }
       </button>
       <button class="btn btn-secondary" (click)="reset()" [disabled]="isLoading">
