@@ -1,0 +1,20 @@
+{
+    "app": {
+        "title": "🔍 Incident Search Application"
+    },
+    "search": {
+        "header": "Search Incidents",
+        "search": "Search",
+        "searching": "Searching...",
+        "reset": "Reset",
+        "loading": "Loading incidents...",
+        "results": "Results",
+        "notFound": "No incidents found matching your search criteria.",
+        "requestDetail": "{{totalElements}} incident(s) found in {{requestTimer}} seconds",
+        "title": "Title",
+        "description": "Description",
+        "status": "Status",
+        "owner": "Owner",
+        "createdAt": "Created At"
+    }
+}

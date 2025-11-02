@@ -1,0 +1,21 @@
+{
+    "app": {
+        "title": "🔍 Application de recherche d'incidents"
+    },
+    "search": {
+        "header": "Rechercher des incidents",
+        "search": "Rechercher",
+        "searching": "Recherche en cours...",
+        "reset": "Réinitialiser",
+        "loading": "Chargement des incidents...",
+        "results": "Résultats",
+        "notFound": "Aucun incident trouvé correspondant à vos critères de recherche.",
+        "requestDetail": "{{totalElements}} incident(s) trouvé(s) en {{requestTimer}} secondes",
+        "title": "Titre",
+        "description": "Description",
+        "status": "Statut",
+        "owner": "Propriétaire",
+        "createdAt": "Créé le"
+    }
+
+}

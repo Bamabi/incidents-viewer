@@ -1,0 +1,60 @@
+volumes:
+  pgdata:
+
+services:
+  db:
+    image: postgres:17
+    container_name: incidents-db
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./01-ddl.sql:/docker-entrypoint-initdb.d/01-ddl.sql
+      - ./02-data.sql:/docker-entrypoint-initdb.d/02-data.sql
+    networks:
+      - incidents-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user -d incidents"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+    container_name: incidents-backend
+    environment:
+      SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
+      SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
+    ports:
+      - "8080:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - incidents-network
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: incidents-frontend
+    environment:
+      API_URL: ${API_URL:-http://localhost:8080/api}
+    ports:
+      - "4200:80"
+    depends_on:
+      - backend
+    networks:
+      - incidents-network
+    restart: unless-stopped
+
+networks:
+  incidents-network:
+    driver: bridge

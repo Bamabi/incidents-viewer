@@ -1,0 +1,121 @@
+<div class="incident-search-container">
+  <!-- Search Form -->
+  <div class="search-form">
+    <h2>{{ 'search.header' | translate }}</h2>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="searchTitle">{{ "search.title" | translate }}</label>
+        <input
+          type="text"
+          id="searchTitle"
+          [(ngModel)]="searchTitle"
+          (keyup.enter)="search()"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="searchDescription">{{ "search.description" | translate }}</label>
+        <input
+          type="text"
+          id="searchDescription"
+          [(ngModel)]="searchDescription"
+          (keyup.enter)="search()"
+        />
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="searchStatus">{{ "search.status" | translate }}</label>
+        <select [(ngModel)]="searchStatus" id="searchStatus">
+          @for (s of status; track s) {
+          <option [value]="s.value">{{ s.viewValue }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="searchOwner">{{ "search.owner" | translate }}</label>
+        <input
+          type="text"
+          id="searchOwner"
+          [(ngModel)]="searchOwner"
+          (keyup.enter)="search()"
+        />
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button class="btn btn-primary" (click)="search()" [disabled]="isLoading">
+        @if (isLoading) {
+          <ng-container>{{ "search.search" | translate }}</ng-container>
+        } @else {
+          <ng-container>{{ "search.searching" | translate }}</ng-container>
+        }
+      </button>
+      <button class="btn btn-secondary" (click)="reset()" [disabled]="isLoading">
+        {{ "search.reset" | translate }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Error Message -->
+  @if (errorMessage) {
+  <div class="error-message">
+    {{ errorMessage }}
+  </div>
+  }
+
+  <!-- Loading Indicator -->
+  @if (isLoading) {
+  <div class="loading">
+    {{ "search.loading" | translate }}
+  </div>
+  } @else {
+  <!-- Results -->
+  <div class="results-container">
+    <div class="results-header">
+      <h3>{{ "search.results" | translate }}</h3>
+      <span class="results-count">{{ "search.requestDetail" | translate:{totalElements, requestTimer} }}</span>
+    </div>
+
+    <!-- No Results -->
+    @if (incidents.length === 0) {
+    <div class="no-results">
+      {{ "search.notFound" | translate }}
+    </div>
+    }
+
+    <!-- Results Table -->
+    @if (incidents.length > 0) {
+    <div class="results-table">
+      <table>
+        <thead>
+        <tr>
+          <th>{{ "search.title" | translate }}</th>
+          <th>{{ "search.status" | translate }}</th>
+          <th>{{ "search.owner" | translate }}</th>
+          <th>{{ "search.createdAt" | translate }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        @for (incident of incidents; track incident) {
+        <tr>
+          <td class="incident-title">{{ incident.title }}</td>
+          <td>
+              <span class="severity-badge" [class]="'severity-' + incident.severity.toLowerCase()">
+                {{ incident.severity }}
+              </span>
+          </td>
+          <td>{{ incident.ownerLastName }} {{ incident.ownerFirstName }} | {{ incident.ownerEmail }}</td>
+          <td>{{ incident.createdAt | date: 'short' }}</td>
+        </tr>
+        }
+        </tbody>
+      </table>
+    </div>
+    }
+  </div>
+  }
+</div>

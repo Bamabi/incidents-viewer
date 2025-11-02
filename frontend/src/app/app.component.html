@@ -1,0 +1,26 @@
+<div class="app-container">
+  <header class="app-header">
+    <h1>{{ 'app.title' | translate }}</h1>
+
+    <div class="language-selector">
+      <img 
+        src="icons/fr.png" 
+        alt="French Flag" 
+        class="flag" 
+        (click)="setLanguage('fr')" 
+        [class.inactive]="currentLanguage !== 'fr'" 
+      />
+      <img 
+        src="icons/en.png" 
+        alt="English Flag" 
+        class="flag" 
+        (click)="setLanguage('en')" 
+        [class.inactive]="currentLanguage !== 'en'" 
+      />
+    </div>
+  </header>
+
+  <main class="app-main">
+    <app-incident-search></app-incident-search>
+  </main>
+</div>
