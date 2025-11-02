@@ -117,5 +117,39 @@
     </div>
     }
   </div>
+
+    @if (totalPages > 1) {
+    <div class="pagination">
+        <button
+          class="btn-page"
+          (click)="goToPage(0)"
+          [disabled]="currentPage === 0">
+          {{ "search.page.first" | translate }}
+        </button>
+        <button
+          class="btn-page"
+          (click)="previousPage()"
+          [disabled]="currentPage === 0">
+          {{ "search.page.previous" | translate }}
+        </button>
+  
+        <span class="page-info">
+          {{ "search.page.description" | translate: {currentPage: currentPage + 1, totalPages} }}
+        </span>
+  
+        <button
+          class="btn-page"
+          (click)="nextPage()"
+          [disabled]="currentPage === totalPages - 1">
+          {{ "search.page.next" | translate }}
+        </button>
+        <button
+          class="btn-page"
+          (click)="goToPage(totalPages - 1)"
+          [disabled]="currentPage === totalPages - 1">
+          {{ "search.page.last" | translate }}
+        </button>
+      </div>
+  }
   }
 </div>

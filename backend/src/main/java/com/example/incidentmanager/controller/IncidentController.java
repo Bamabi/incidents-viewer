@@ -3,6 +3,7 @@ package com.example.incidentmanager.controller;
 import com.example.incidentmanager.dto.IncidentDTO;
 import com.example.incidentmanager.dto.IncidentSearchDTO;
 import com.example.incidentmanager.service.IncidentService;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,19 +34,23 @@ public class IncidentController {
      * - ownerName: Search by owner name (partial match)
      */
     @GetMapping()
-    public ResponseEntity<List<IncidentDTO>> searchIncidents(
+    public ResponseEntity<Page<IncidentDTO>> searchIncidents(
             @RequestParam(required = false) String title,
             @RequestParam(required = false) String description,
             @RequestParam(required = false) String severity,
-            @RequestParam(required = false) String ownerName
+            @RequestParam(required = false) String ownerName,
+            @RequestParam(defaultValue = "0") Integer page,
+            @RequestParam(defaultValue = "10") Integer size
     ) {
         IncidentSearchDTO searchDTO = new IncidentSearchDTO();
         searchDTO.setTitle(title);
         searchDTO.setDescription(description);
         searchDTO.setSeverity(severity);
         searchDTO.setOwnerName(ownerName);
+        searchDTO.setPage(page);
+        searchDTO.setSize(size);
 
-        List<IncidentDTO> results = incidentService.searchIncidents(searchDTO);
+        Page<IncidentDTO> results = incidentService.searchIncidents(searchDTO);
         return ResponseEntity.ok(results);
     }
 }

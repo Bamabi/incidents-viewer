@@ -4,7 +4,9 @@ import { FormsModule } from '@angular/forms';
 import { TranslatePipe } from "@ngx-translate/core";
 import { IncidentService } from '../../services/incident.service';
 import { Incident } from '../../models/incident.model';
+import { Page } from '../../models/page.model';
 import { timeInterval } from 'rxjs';
+import { TimeInterval } from 'rxjs/internal/operators/timeInterval';
 
 /**
  * Component for searching and displaying incidents
@@ -32,6 +34,9 @@ export class IncidentSearchComponent implements OnInit {
   // Results
   incidents: Incident[] = [];
   totalElements: number = 0;
+  totalPages: number = 0;
+  currentPage: number = 0;
+  pageSize: number = 10;
   isLoading: boolean = false;
   requestTimer: number = 0;
   errorMessage: string = '';
@@ -53,11 +58,16 @@ export class IncidentSearchComponent implements OnInit {
       this.searchTitle || undefined,
       this.searchDescription || undefined,
       this.searchStatus || undefined,
-      this.searchOwner || undefined
+      this.searchOwner || undefined,
+      this.currentPage,
+      this.pageSize
     ).pipe(timeInterval()).subscribe({ // timeInterval measure is ~5ms higher than actual request time in browser
-      next: res => {
-        this.incidents = res.value;
-        this.totalElements = res.value.length;
+      next: (res: TimeInterval<Page<Incident>>) => {
+        let page = res.value;
+        this.incidents = page.content;
+        this.totalElements = page.numberOfElements;
+        this.totalPages = page.totalPages;
+        this.currentPage = page.number;
         this.isLoading = false;
         this.requestTimer = res.interval / 1000; // convert interval in milliseconds to seconds
       },
@@ -73,7 +83,43 @@ export class IncidentSearchComponent implements OnInit {
    */
   reset(): void {
     this.searchTitle = this.searchDescription = this.searchStatus = this.searchOwner = '';
+    this.currentPage = 0;
     this.search();
+  }
+
+  /**
+   * Go to specific page
+   */
+  goToPage(page: number): void {
+    if (page >= 0 && page < this.totalPages) {
+      this.currentPage = page;
+      this.search();
+    }
+  }
+
+  /**
+   * Go to previous page
+   */
+  previousPage(): void {
+    if (this.currentPage > 0) {
+      this.goToPage(this.currentPage - 1);
+    }
+  }
+
+  /**
+   * Go to next page
+   */
+  nextPage(): void {
+    if (this.currentPage < this.totalPages - 1) {
+      this.goToPage(this.currentPage + 1);
+    }
+  }
+
+  /**
+   * Get array of page numbers for pagination
+   */
+  getPageNumbers(): number[] {
+    return Array.from({ length: this.totalPages }, (_, i) => i);
   }
 
 }

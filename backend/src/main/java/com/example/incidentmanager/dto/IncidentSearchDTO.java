@@ -14,6 +14,8 @@ public class IncidentSearchDTO {
     private String description;
     private String severity;
     private String ownerName;
+    private Integer page = 0;
+    private Integer size = 10;
 
     public String getTitle() {
         return title;
@@ -46,4 +48,21 @@ public class IncidentSearchDTO {
     public void setOwnerName(String ownerName) {
         this.ownerName = ownerName;
     }
+
+    public Integer getPage() {
+        return page;
+    }
+
+    public void setPage(Integer page) {
+        this.page = page;
+    }
+
+    public Integer getSize() {
+        return size;
+    }
+
+    public void setSize(Integer size) {
+        this.size = size;
+    }
+    
 }

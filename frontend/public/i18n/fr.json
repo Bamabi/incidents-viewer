@@ -15,7 +15,14 @@
         "description": "Description",
         "status": "Statut",
         "owner": "Propriétaire",
-        "createdAt": "Créé le"
+        "createdAt": "Créé le",
+        "page": {
+            "first": "Première",
+            "previous": "Précédent",
+            "next": "Suivant",
+            "last": "Dernière",
+            "description": "Page {{currentPage}} sur {{totalPages}}"
+        }
     }
 
 }
