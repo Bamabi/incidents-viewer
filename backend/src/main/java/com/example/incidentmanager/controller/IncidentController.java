@@ -3,11 +3,11 @@ package com.example.incidentmanager.controller;
 import com.example.incidentmanager.dto.IncidentDTO;
 import com.example.incidentmanager.dto.IncidentSearchDTO;
 import com.example.incidentmanager.service.IncidentService;
+
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * REST Controller for Incident operations
@@ -30,10 +30,12 @@ public class IncidentController {
      * <p>
      * Query parameters:
      * - title: Search by title (partial match)
+     * - description: Search by title (partial match)
      * - severity: Search by status (partial match)
      * - ownerName: Search by owner name (partial match)
      */
     @GetMapping()
+    @Cacheable("incidentSearchCache")
     public ResponseEntity<Page<IncidentDTO>> searchIncidents(
             @RequestParam(required = false) String title,
             @RequestParam(required = false) String description,
