@@ -1,16 +1,17 @@
-package com.example.incidentmanager.service;
+package com.example.incidentviewer.service;
 
-import com.example.incidentmanager.dto.IncidentDTO;
-import com.example.incidentmanager.dto.IncidentSearchDTO;
-import com.example.incidentmanager.entity.Incident;
-import com.example.incidentmanager.mapper.IncidentMapper;
-import com.example.incidentmanager.repository.IncidentRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.example.incidentviewer.dto.IncidentDTO;
+import com.example.incidentviewer.dto.IncidentSearchDTO;
+import com.example.incidentviewer.entity.Incident;
+import com.example.incidentviewer.mapper.IncidentMapper;
+import com.example.incidentviewer.repository.IncidentRepository;
 
 /**
  * Service layer for Incident operations

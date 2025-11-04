@@ -1,7 +1,7 @@
-package com.example.incidentmanager.mapper;
+package com.example.incidentviewer.mapper;
 
-import com.example.incidentmanager.dto.IncidentDTO;
-import com.example.incidentmanager.entity.Incident;
+import com.example.incidentviewer.dto.IncidentDTO;
+import com.example.incidentviewer.entity.Incident;
 
 public class IncidentMapper {
 

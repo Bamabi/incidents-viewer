@@ -1,4 +1,4 @@
-package com.example.incidentmanager.entity;
+package com.example.incidentviewer.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

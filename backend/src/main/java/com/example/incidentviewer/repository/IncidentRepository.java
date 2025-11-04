@@ -1,10 +1,11 @@
-package com.example.incidentmanager.repository;
+package com.example.incidentviewer.repository;
 
-import com.example.incidentmanager.entity.Incident;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
+import com.example.incidentviewer.entity.Incident;
 
 /**
  * Repository for Incident entity

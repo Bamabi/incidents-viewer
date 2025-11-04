@@ -1,4 +1,4 @@
-package com.example.incidentmanager.config;
+package com.example.incidentviewer.config;
 
 import com.github.benmanes.caffeine.cache.Cache;
 import org.springframework.cache.CacheManager;

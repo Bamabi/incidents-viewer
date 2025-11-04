@@ -1,13 +1,13 @@
-package com.example.incidentmanager.controller;
-
-import com.example.incidentmanager.dto.IncidentDTO;
-import com.example.incidentmanager.dto.IncidentSearchDTO;
-import com.example.incidentmanager.service.IncidentService;
+package com.example.incidentviewer.controller;
 
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import com.example.incidentviewer.dto.IncidentDTO;
+import com.example.incidentviewer.dto.IncidentSearchDTO;
+import com.example.incidentviewer.service.IncidentService;
 
 /**
  * REST Controller for Incident operations

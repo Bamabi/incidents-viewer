@@ -1,4 +1,4 @@
-package com.example.incidentmanager.dto;
+package com.example.incidentviewer.dto;
 
 import lombok.*;
 

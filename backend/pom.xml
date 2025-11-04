@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.example</groupId>
-    <artifactId>incident-manager</artifactId>
+    <artifactId>incident-viewer</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>Incident Search Backend</name>
     <description>Backend API for Incident Search Application</description>
