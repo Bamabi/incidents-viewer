@@ -7,6 +7,7 @@
         "search": "Rechercher",
         "searching": "Recherche en cours...",
         "reset": "Réinitialiser",
+        "emptyCache": "Vider le cache",
         "loading": "Chargement des incidents...",
         "results": "Résultats",
         "notFound": "Aucun incident trouvé correspondant à vos critères de recherche.",

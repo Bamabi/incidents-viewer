@@ -7,6 +7,7 @@ import { Incident } from '../../models/incident.model';
 import { Page } from '../../models/page.model';
 import { timeInterval } from 'rxjs';
 import { TimeInterval } from 'rxjs/internal/operators/timeInterval';
+import { CacheService } from '../../services/cache.service';
 
 /**
  * Component for searching and displaying incidents
@@ -41,7 +42,10 @@ export class IncidentSearchComponent implements OnInit {
   requestTimer: number = 0;
   errorMessage: string = '';
 
-  constructor(private incidentService: IncidentService) {}
+  constructor(
+    private incidentService: IncidentService,
+    private cacheService: CacheService,
+  ) {}
 
   ngOnInit(): void {
     this.search();
@@ -84,6 +88,14 @@ export class IncidentSearchComponent implements OnInit {
   reset(): void {
     this.searchTitle = this.searchDescription = this.searchStatus = this.searchOwner = '';
     this.currentPage = 0;
+    this.search();
+  }
+
+  /**
+   * la recherche Empty cache and re-run search
+   */
+  clearCacheAndSearch(): void {
+    this.cacheService.clearAll();
     this.search();
   }
 

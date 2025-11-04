@@ -30,12 +30,12 @@ export class IncidentService {
       .set('page', page.toString())
       .set('size', size.toString());
 
-      // Add optional parameters only if they exist
-      if (title) params = params.set('title', title);
-      if (description) params = params.set('description', description);
-      if (severity) params = params.set('severity', severity);
-      if (ownerName) params = params.set('ownerName', ownerName);
-      
+    // Add optional parameters only if they exist
+    if (title) params = params.set('title', title);
+    if (description) params = params.set('description', description);
+    if (severity) params = params.set('severity', severity);
+    if (ownerName) params = params.set('ownerName', ownerName);
+    
     return this.http.get<Page<Incident>>(`${this.apiUrl}`, { params });
   }
 }

@@ -95,6 +95,15 @@
   }
 }
 
+.btn-cache {
+  background: #ffd478;
+  color: #333;
+
+  &:hover:not(:disabled) {
+    background: #daaa43;
+  }
+}
+
 .error-message {
   background: #ffebee;
   color: #c62828;
