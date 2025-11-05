@@ -4,6 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,34 +36,10 @@ public class IncidentService {
                 searchDTO.getSize(),
                 Sort.by(Sort.Direction.DESC, "createdAt")
         );
-    
 
-        Page<Incident> incidents;
+        Specification<Incident> spec = new IncidentSpecification(searchDTO);
 
-        // Check which search criteria are provided
-        boolean hasTitle = searchDTO.getTitle() != null && !searchDTO.getTitle().isEmpty();
-        boolean hasDescription = searchDTO.getDescription() != null && !searchDTO.getDescription().isEmpty();
-        boolean hasStatus = searchDTO.getSeverity() != null && !searchDTO.getSeverity().isEmpty();
-        boolean hasOwnerName = searchDTO.getOwnerName() != null && !searchDTO.getOwnerName().isEmpty();
-
-        // Execute appropriate query based on criteria
-        if (hasTitle && hasDescription && hasStatus && hasOwnerName) {
-            // All criteria provided - search in all fields
-            incidents = incidentRepository.findByTitleContainingIgnoreCaseOrDescriptionContainingIgnoreCaseOrSeverityContainingIgnoreCaseOrOwner_EmailContainingIgnoreCase(
-                    searchDTO.getTitle(), searchDTO.getDescription(), searchDTO.getSeverity(), searchDTO.getOwnerName(), pageable
-            );
-        }  else if (hasTitle) {
-            incidents = incidentRepository.findByTitleContainingIgnoreCase(searchDTO.getTitle(), pageable);
-        } else if (hasDescription) {
-            incidents = incidentRepository.findByDescriptionContainingIgnoreCase(searchDTO.getDescription(), pageable);
-        } else if (hasStatus) {
-            incidents = incidentRepository.findBySeverityContainingIgnoreCase(searchDTO.getSeverity(), pageable);
-        } else if (hasOwnerName) {
-            incidents = incidentRepository.findByOwner_EmailContainingIgnoreCase(searchDTO.getOwnerName(), pageable);
-        } else {
-            // No criteria - return all
-            incidents = incidentRepository.findAll(pageable);
-        }
+        Page<Incident> incidents = incidentRepository.findAll(spec, pageable);
 
         // Convert to DTOs
         return incidents.map(IncidentMapper::toDTO);

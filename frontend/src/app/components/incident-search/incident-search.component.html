@@ -97,6 +97,7 @@
         <thead>
         <tr>
           <th>{{ "search.title" | translate }}</th>
+          <th>{{ "search.description" | translate }}</th>
           <th>{{ "search.status" | translate }}</th>
           <th>{{ "search.owner" | translate }}</th>
           <th>{{ "search.createdAt" | translate }}</th>
@@ -106,6 +107,7 @@
         @for (incident of incidents; track incident) {
         <tr>
           <td class="incident-title">{{ incident.title }}</td>
+          <td class="incident-description">{{ incident.description }}</td>
           <td>
               <span class="severity-badge" [class]="'severity-' + incident.severity.toLowerCase()">
                 {{ incident.severity }}
